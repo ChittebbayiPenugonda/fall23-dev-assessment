@@ -1,0 +1,80 @@
+table{
+    margin: 10px auto;
+    border-spacing: 0 0px;
+    font-size: 15px;
+}
+table thead{
+    color: rgba(247, 247, 247, 0.562);
+
+}
+table tbody{
+    color: rgba(255, 255, 255, 0.452);
+    font-weight:normal !important;
+}
+table thead th{
+    background-color: #491a68;
+    padding: 18px;
+}
+table td{
+    padding:6px;
+    text-align: center;
+}
+table tr{
+    background-color: #2B2D31;
+}
+table tr:nth-of-type(even){
+    background-color: #313338;
+}
+table tr td{
+    cursor: pointer;
+}
+
+table button{
+    border:none;
+    padding:10px;
+    background-color:rgb(184, 48, 48);
+    color:rgba(255, 255, 255, 0.452);
+    cursor: pointer;
+}
+table .delete button{
+    background-color:rgb(184, 48, 48);
+}
+table .add button{
+    background-color:rgb(40, 109, 155);
+}
+table .avatartd img{
+    width:45px;
+    border-radius: 50px;
+
+}
+table .avatartd{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+table .pagenav{
+    
+}
+table .newVolunteerRow {
+    background-color:rgb(29, 55, 110) !important;
+    cursor:default !important;
+}
+table .newVolunteerRow input{
+    background-color:rgba(0, 0, 0, 0.39);
+    border: none;
+    padding: 8px;
+    font-size: 15px;
+    color:  rgba(255, 255, 255, 0.452);
+}
+table .notessection{
+    background-color:rgb(29, 55, 110) !important;
+    cursor:default !important;
+}
+table .notessection textarea{
+    background-color:rgba(0, 0, 0, 0.39);
+    border:none;
+    padding:2px;
+    color:rgba(255, 255, 255, 0.452);
+    font-size: 15px;
+
+}
