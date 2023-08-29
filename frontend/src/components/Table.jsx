@@ -9,29 +9,44 @@ const Table = () => {
     const[currentData, setCurrentData] = useState(null);
 
     //pageination
-    const[currentPage, setCurrentPage] = useState(1);
+    let currentPage = 1;
+    const[currentPageDisplay, setCurrentPageDisplay] = useState(1); 
     const recordsPerPage = 10;
-    const lastIndex = currentPage * recordsPerPage;
-    const firstIndex = lastIndex - recordsPerPage;
+    let lastIndex = currentPage * recordsPerPage;
+    let firstIndex = lastIndex - recordsPerPage;
 
         //assigned after data retrieval
-        const[records, setRecords] = useState([]);
-        let npage = null;
-        let numbers = null;
+        const[records, setRecords] = useState(null);
+        let npage = currentData != null ? Math.ceil(currentData.length / recordsPerPage) : null;
+        const[numbers, setNumbers] = useState(null);
 
+
+    const updatePageDisplay = (n) => {
+        console.log("u" + n);
+        currentPage = n;
+        setCurrentPageDisplay(n);
+        npage = Math.ceil(currentData.length / recordsPerPage);
+        lastIndex = currentPage * recordsPerPage;
+        firstIndex = lastIndex - recordsPerPage;
+        setRecords(currentData.slice(firstIndex, lastIndex));
+    }
     const prePage = () => {
-        if(currentPage != 1){
-            setCurrentPage(currentPage - 1);
+        if(currentPageDisplay != 1){
+            updatePageDisplay(currentPageDisplay - 1);
         }
     }
     const changeCPage = (n) => {
-        setCurrentPage(n);
+        console.log("c" + n);
+        updatePageDisplay(n)
     }
     const nextPage = () => {
-        if(currentPage != npage){
-            setCurrentPage(currentPage + 1);
+        console.log(currentPageDisplay + " " + currentPage + " " + npage)
+        if(currentPageDisplay != npage){
+            updatePageDisplay(currentPageDisplay + 1);
         }
     }
+
+
     //pagination
 
     // new employee fields
@@ -45,12 +60,16 @@ const Table = () => {
     //new employee fields
 
     const deleteVolunteer = (id) => {
+        let prevLength = currentData.length;
         setCurrentData(currentData.filter((volunteer) => {
             return volunteer.id != id;
-        }))
+        }));
+        npage = Math.ceil((prevLength-1) / recordsPerPage);
+        setNumbers([...Array(npage + 1).keys()].slice(1));
     }
 
     const addVolunteer = () => {
+        let prevLength = currentData.length;
         setCurrentData([...currentData,     {
             "name": name,
             "avatar": defaultuserpfp,
@@ -69,27 +88,34 @@ const Table = () => {
         setRating("");
         setStatus(false);
         setHeroProject("");
+
+        npage = Math.ceil((prevLength+1) / recordsPerPage);
+        console.warn("a" + npage)
+        setNumbers([...Array(npage + 1).keys()].slice(1));
     }
 
     const goToVolunteer = (employeeroute) => {
         history.push(employeeroute);
     }
     useEffect(() => {
+
         fetch('http://localhost:5000/api/bog/users').then(
             response => response.json()
         ).then(
             data => {
                 setCurrentData(data);
                 setRecords(data.slice(firstIndex, lastIndex));
+
                 npage = Math.ceil(data.length / recordsPerPage);
-                numbers = [...Array(npage + 1).keys()].slice(1);
+                setNumbers([...Array(npage + 1).keys()].slice(1));
+
             }
         )
-    }, [records]);
+    }, []);
 
 
 
-    if(currentData == null || currentData == 'undefined' || records == null){
+    if(currentData == null || currentData == 'undefined' || records == null ){
         return (
             <p>Loading...</p>
         );
@@ -111,7 +137,7 @@ const Table = () => {
                     </tr>
             </thead>
             <tbody>
-                {records.map((volunteer) => (
+                {records?.map((volunteer) => (
                     <tr>
                         <td className="avatartd" onClick= {() => {goToVolunteer('/volunteer/' + volunteer.id)}}><img src={volunteer.avatar} /></td>
                         <td onClick= {() => {goToVolunteer('/volunteer/' + volunteer.id)}}>{volunteer.name}</td>
@@ -134,7 +160,7 @@ const Table = () => {
                                 </li>
                                 {
                                     numbers.map((n,i) => (
-                                        <li key={i} className={currentPage===n ? 'active' : ''}>
+                                        <li key={i} className={currentPageDisplay===n ? 'active' : ''}>
                                             <a href="#" onClick={()=> {changeCPage(n)}}>{n}</a>
                                         </li>
                                     ))

@@ -52,8 +52,27 @@ table .avatartd{
     flex-direction: column;
     justify-content: center;
 }
-table .pagenav{
-    
+table .paginationrow{
+    background-color:#1E1F22;
+}
+table .paginationul{
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+}
+
+table .paginationul li{
+    border: 1px solid rgba(241, 241, 241, 0.068);
+    padding: 10px;
+
+}
+table .paginationul .active{
+    background-color: #2B2D31;
+
+}
+table .paginationul li a{
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.247);
 }
 table .newVolunteerRow {
     background-color:rgb(29, 55, 110) !important;
@@ -67,7 +86,7 @@ table .newVolunteerRow input{
     color:  rgba(255, 255, 255, 0.452);
 }
 table .notessection{
-    background-color:rgb(29, 55, 110) !important;
+    background-color:rgb(22, 36, 68) !important;
     cursor:default !important;
 }
 table .notessection textarea{
