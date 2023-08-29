@@ -60,10 +60,13 @@ const Table = () => {
     //new employee fields
 
     const deleteVolunteer = (id) => {
+
         let prevLength = currentData.length;
-        setCurrentData(currentData.filter((volunteer) => {
+        let newData = currentData.filter((volunteer) => {
             return volunteer.id != id;
-        }));
+        });
+        setCurrentData(newData);
+        setRecords(newData.slice(firstIndex, lastIndex))
         npage = Math.ceil((prevLength-1) / recordsPerPage);
         setNumbers([...Array(npage + 1).keys()].slice(1));
     }
@@ -139,13 +142,13 @@ const Table = () => {
             <tbody>
                 {records?.map((volunteer) => (
                     <tr>
-                        <td className="avatartd" onClick= {() => {goToVolunteer('/volunteer/' + volunteer.id)}}><img src={volunteer.avatar} /></td>
-                        <td onClick= {() => {goToVolunteer('/volunteer/' + volunteer.id)}}>{volunteer.name}</td>
-                        <td onClick= {() => {goToVolunteer('/volunteer/' + volunteer.id)}}>{volunteer.phone}</td>
-                        <td onClick= {() => {goToVolunteer('/volunteer/' + volunteer.id)}}>{volunteer.email}</td>
-                        <td onClick= {() => {goToVolunteer('/volunteer/' + volunteer.id)}}>{volunteer.rating}</td>
-                        <td onClick= {() => {goToVolunteer('/volunteer/' + volunteer.id)}}>{volunteer.status ? 'active' : 'inactive'}</td>
-                        <td onClick= {() => {goToVolunteer('/volunteer/' + volunteer.id)}}>{volunteer.hero_project}</td>
+                        <td className="avatartd infotd" onClick= {() => {goToVolunteer('/volunteer/' + volunteer.id)}}><img src={volunteer.avatar} /></td>
+                        <td className="infotd" onClick= {() => {goToVolunteer('/volunteer/' + volunteer.id)}}>{volunteer.name}</td>
+                        <td className="infotd" onClick= {() => {goToVolunteer('/volunteer/' + volunteer.id)}}>{volunteer.phone}</td>
+                        <td className="infotd" onClick= {() => {goToVolunteer('/volunteer/' + volunteer.id)}}>{volunteer.email}</td>
+                        <td className="infotd" onClick= {() => {goToVolunteer('/volunteer/' + volunteer.id)}}>{volunteer.rating}</td>
+                        <td className="infotd" onClick= {() => {goToVolunteer('/volunteer/' + volunteer.id)}}>{volunteer.status ? 'active' : 'inactive'}</td>
+                        <td className="infotd" onClick= {() => {goToVolunteer('/volunteer/' + volunteer.id)}}>{volunteer.hero_project}</td>
                         <td className="delete" onClick={()=>{deleteVolunteer(volunteer.id)}}><button>Delete</button></td>
                     </tr>
                     

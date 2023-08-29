@@ -25,7 +25,7 @@ table tr{
 table tr:nth-of-type(even){
     background-color: #313338;
 }
-table tr td{
+table tr .infotd{
     cursor: pointer;
 }
 
@@ -76,7 +76,6 @@ table .paginationul li a{
 }
 table .newVolunteerRow {
     background-color:rgb(29, 55, 110) !important;
-    cursor:default !important;
 }
 table .newVolunteerRow input{
     background-color:rgba(0, 0, 0, 0.39);
@@ -87,7 +86,6 @@ table .newVolunteerRow input{
 }
 table .notessection{
     background-color:rgb(22, 36, 68) !important;
-    cursor:default !important;
 }
 table .notessection textarea{
     background-color:rgba(0, 0, 0, 0.39);
